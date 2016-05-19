@@ -15,6 +15,11 @@ $g: #797c81;
     right: 30px;
     cursor: pointer;
     box-shadow: 0px 2px 5px #666;
+    background-image: url(../assets/icon.png);
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    z-index: 100;
   }
 
   .menu {
@@ -30,9 +35,11 @@ $g: #797c81;
     justify-content: flex-end;
     padding-bottom: 100px;
     padding-right: 35px;
+    z-index: -100;
   }
   .menu-show {
     opacity: 1;
+    z-index: 100;
   }
 
   @media (min-width: 760px) {

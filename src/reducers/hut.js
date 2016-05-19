@@ -1,7 +1,8 @@
 import request from 'superagent';
 
 const LOAD = 'LOAD';
-
+const baseUrl = 'http://localhost:3002';
+// const baseUrl = 'http://ec2-52-36-39-175.us-west-2.compute.amazonaws.com';
 const initialState = {
   data: []
 };
@@ -21,7 +22,7 @@ export default function reducer(state = initialState, action) {
 export function load() {
   return dispatch => {
     request
-    .get('http://ec2-52-36-39-175.us-west-2.compute.amazonaws.com/data-dev')
+    .get(`${baseUrl}/data-dev`)
     .end( (err, res) => {
       dispatch({
         type: LOAD,

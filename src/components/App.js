@@ -1,5 +1,8 @@
 import React, { PropTypes } from 'react';
+import moment from 'moment';
+
 import MobileMenu from './MobileMenu.js';
+import SideBar from './SideBar.js';
 import Chart from './Chart.js';
 import TitleBar from './TitleBar.js';
 import * as actions from '../reducers/hut';
@@ -10,101 +13,86 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {ha: true};
+    this.state = {
+      hutNameZh: '樂樂山屋'
+    };
   }
 
   componentWillMount() {
     this.props.actions.load();
   }
 
-  test() {
-    this.setState({ha: true});
-  }
-
-  out() {
-    this.setState({ha: false});
+  onHutClick(hutNameZh) {
+    this.setState({hutNameZh: hutNameZh})
   }
 
   render() {
-    return (
-      <div id='app'>
-        <MobileMenu
-          data={this.props.data}/>
-        <div id='navbar'>
-          <div>台灣山屋</div>
-        </div>
-        <div id='content'>
-          <div id='sidebar'>
-            <div>
-              <div
-                className='admin'
-                onMouseOver={this.test.bind(this)}
-                onMouseOut={this.out.bind(this)}>
-                <div className='hoverbar'></div>
-                <div className='icon'></div>
-                <div>雪霸國家公園</div>
-              </div>
-              {/*<div style={{display: this.state.ha ? '' : 'none'}}>
-                <div>七卡山莊</div>
-                <div>三六九山莊</div>
-              </div>*/}
-              <div
-                className='admin'
-                onMouseOver={this.test.bind(this)}
-                onMouseOut={this.out.bind(this)}>
-                <div className='hoverbar'></div>
-                <div className='icon'></div>
-                <div>玉山國家公園</div>
-              </div>
-              <div
-                className='admin'
-                onMouseOver={this.test.bind(this)}
-                onMouseOut={this.out.bind(this)}>
-                <div className='hoverbar'></div>
-                <div className='icon'></div>
-                <div>太魯閣國家公園</div>
-              </div>
-              <div
-                className='admin'
-                onMouseOver={this.test.bind(this)}
-                onMouseOut={this.out.bind(this)}>
-                <div className='hoverbar'></div>
-                <div className='icon'></div>
-                <div>台灣山林悠遊網</div>
-              </div>
-              <div
-                className='admin'
-                onMouseOver={this.test.bind(this)}
-                onMouseOut={this.out.bind(this)}>
-                <div className='hoverbar'></div>
-                <div className='icon'></div>
-                <div>南投林區管理處</div>
-              </div>
-            </div>
-            {/*admin*/}
-            {/*hut*/}
+    if (this.props.data.length === 0) {
+      return null
+    }else {
+      var hut = this.props.data.filter( (hut) => hut.nameZh === this.state.hutNameZh );
+
+      var ss = {};
+      hut[0].capacityStatuses.status.forEach( s => {
+        var month = moment(s.date).month();
+        if (ss[month]) {
+          ss[month].push(s);
+        }else{
+          ss[month] = [s];
+        }
+      })
+
+      var maxApplying = Math.max(...hut[0].capacityStatuses.status.map( s => s.applying));
+
+      Object.keys(ss).forEach( key => {
+        var startDay = moment(ss[key][0].date).day();
+        for (var i = 0; i < startDay; i++) {
+          ss[key].unshift({date: null});
+        }
+        var endDay = moment(ss[key][ss[key].length-1].date).day();
+        for (var j = 0; j < 6 - endDay; j++) {
+          ss[key].push({date: null});
+        }
+      })
+
+      return (
+        <div id='app'>
+          <MobileMenu
+            data={this.props.data}
+            onHutClick={this.onHutClick.bind(this)}/>
+          <div id='navbar'>
+            <div>台灣山屋</div>
           </div>
-          <div id='hut'>
-            <TitleBar/>
-            <div id='calendar'>
-              <div>
-                <div className='month'>4月</div>
-                <div id='chart-container'>
-                  <Chart/>
-                  <Chart/>
-                  <Chart/>
-                  <Chart/>
-                  <Chart/>
-                  <Chart/>
-                  <Chart/>
+          <div id='content'>
+            <SideBar
+              data={this.props.data}
+              onHutClick={this.onHutClick.bind(this)}/>
+            <div id='hut'>
+              <TitleBar hut={hut}/>
+              <div id='calendar'>
+                <div className='hint-container'>
+                  <div className='icon-remaining-hint'></div>
+                  <div className='remaining-hint'>剩餘</div>
+                  <div className='icon-applying-hint'></div>
+                  <div className='applying-hint'>候補</div>
                 </div>
-                <div className='divider'></div>
+                {Object.keys(ss).map( month => {
+                  return (
+                    <div>
+                      <div className='month'>{`${month}月`}</div>
+                      <div id='chart-container'>
+                        {ss[month].map( s => <Chart s={s} capacity={hut[0].capacity} maxApplying={maxApplying}/> )}
+                      </div>
+                      {/*<div className='divider'></div>*/}
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 

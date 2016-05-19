@@ -14,6 +14,13 @@ $g: #797c81;
 /* Styles */
 * {
   box-sizing: border-box;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently
+                                  not supported by any browser */
 }
 
 body {
@@ -32,7 +39,7 @@ body {
   flex-direction: column;
 
   #navbar {
-    height: 50px;
+    height: 0px;
     @media(max-width: 760px) {
       display: none;
     }
@@ -42,69 +49,19 @@ body {
     display: flex;
     height: 100%;
 
-    #sidebar {
-      width: 250px;
-      background: $b;
-      margin-right: 1px;
-      font-size: 20px;
-      color: $g;
-      display: none;
-
-      .admin {
-        color: white;
-        cursor: pointer;
-        display: flex;
-        height: 60px;
-        align-items: center;
-        transition: all 0.5s ease;
-        // justify-content: center;
-
-        &:hover {
-          background: $bhover;
-
-          .hoverbar {
-            background: $b2;
-          }
-        }
-
-        .icon {
-          width: 20px;
-          height: 20px;
-          margin-left: 30px;
-          margin-right: 10px;
-          background: url(../assets/icon.png);
-          background-size: cover;
-        }
-
-        .hoverbar {
-          display: inline-block;
-          width: 5px;
-          height: 100%;
-          background: $b;
-          transition: all 0.5s ease;
-        }
-      }
-
-
-    }
-
-
-    @media (min-width: 760px) {
-      #sidebar {
-        display: flex;
-      }
-    }
-
     #hut {
       flex: 1;
       display: flex;
       flex-direction: column;
 
       #calendar {
-        padding: 20px;
+        flex: 1;
+        padding: 10px 20px;
+        overflow: scroll;
 
         .month {
           font-size: 28px;
+          margin-top: 10px;
           margin-bottom: 10px;
           color: #0E4267;
         }
@@ -114,45 +71,45 @@ body {
         #chart-container {
           display: flex;
           flex-direction: row;
-          .chart {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            align-items: center;
-
-            .bar-container {
-              display: flex;
-              flex-direction: row;
-              align-items: flex-end;
-              // align-items: center;
-
-              .bar {
-                text-align: center;
-                .remaining {
-                  width: 15px;
-                  height: 100px;
-                  background: #0E4267;
-                  margin-right: 2px;
-                }
-                .applying {
-                  width: 15px;
-                  height: 80px;
-                  background: #268DC4;
-                }
-              }
-
-            }
-          }
-
-        }
-
-        .divider {
-          height: 1px;
-          background: rgba(0,0,0,0.1);
-          margin-top: 20px;
+          flex-wrap: wrap;
         }
       }
 
     }
   }
+}
+
+.hint-container {
+  position: absolute;
+  right: 30px;
+  top: 80px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.icon-remaining-hint {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: $b;
+  margin: 0 5px;
+  border-radius: 2px;
+}
+
+.icon-applying-hint {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: $b2;
+  margin: 0 5px;
+  border-radius: 2px;
+}
+
+.remaining-hint {
+  color: $b;
+}
+
+.applying-hint {
+  color: $b2;
 }

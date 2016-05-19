@@ -7,7 +7,7 @@ class MobileMenu extends React.Component {
     super(props);
     this.state = {
       isMenuShow: false,
-      adminSelect: '雪霸國家公園'
+      adminSelect: '玉山國家公園'
     }
   }
 
@@ -26,7 +26,8 @@ class MobileMenu extends React.Component {
     this.setState({adminSelect: admin})
   }
 
-  onHutClick() {
+  onHutClick(hut) {
+    this.props.onHutClick(hut);
     this.setState({isMenuShow: false})
   }
 
