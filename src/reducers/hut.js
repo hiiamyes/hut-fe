@@ -1,8 +1,13 @@
 import request from 'superagent';
 
 const LOAD = 'LOAD';
+
+/* eslint-disable global-require */
 const baseUrl = 'http://localhost:3002';
-// const baseUrl = 'http://ec2-52-36-39-175.us-west-2.compute.amazonaws.com';
+if (process.env.NODE_ENV === 'production') {
+  const baseUrl = 'http://ec2-52-36-39-175.us-west-2.compute.amazonaws.com:3002';
+}
+
 const initialState = {
   data: []
 };
