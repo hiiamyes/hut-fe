@@ -21,7 +21,7 @@ export default function reducer(state = initialState, action) {
 export function load() {
   return dispatch => {
     request
-    .get('http://localhost:3003/data-dev')
+    .get('http://ec2-52-36-39-175.us-west-2.compute.amazonaws.com/data-dev')
     .end( (err, res) => {
       dispatch({
         type: LOAD,
