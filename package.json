@@ -15,9 +15,10 @@
     "remove-dist": "rimraf ./dist",
     "build:html": "babel-node tools/buildHtml.js",
     "prebuild": "npm run clean-dist && npm run build:html && npm run lint",
-    "build": "babel-node tools/build.js && npm run open:dist",
+    "build": "babel-node tools/build.js",
     "test": "mocha tools/testSetup.js src/**/*.spec.js --reporter progress",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "deploy": "git push origin master && git subtree push --prefix dist origin gh-pages"
   },
   "author": "Cory House",
   "license": "MIT",
