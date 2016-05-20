@@ -37,6 +37,11 @@ class MobileMenu extends React.Component {
       'menu-show': this.state.isMenuShow
     });
 
+    var imgUrl = '../assets/icon.png';
+    if (process.env.NODE_ENV === 'production') {
+      imgUrl = '/hut-fe' + require('../assets/icon.png');
+    }
+
     var admins = ['雪霸國家公園', '玉山國家公園', '太魯閣國家公園', '台灣山林悠遊網', '南投林區管理處'];
 
     return (
@@ -66,6 +71,7 @@ class MobileMenu extends React.Component {
         </div>
         <div
           className='floating-button'
+          style={{backgroundImage: `url(${imgUrl})`}}
           onClick={this.buttonClick.bind(this)}/>
       </div>
     );

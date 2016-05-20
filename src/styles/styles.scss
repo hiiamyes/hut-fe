@@ -1,4 +1,4 @@
-// @import url(http://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+@import url(http://fonts.googleapis.com/earlyaccess/cwtexyen.css);
 
 /* Variables */
 $b: #233237;
@@ -6,10 +6,11 @@ $b2: #135b9c;
 $bhover: #1e2c31;
 $g: #797c81;
 
-@font-face {
-  font-family: myFirstFont;
-  src: url(../assets/cwTeXYen-zhonly.ttf);
-}
+// @font-face {
+//   font-family: myFirstFont;
+//   // src: url(../assets/cwTeXYen-zhonly.ttf);
+//   src: url(http://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+// }
 
 /* Styles */
 * {
@@ -29,7 +30,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   font-smoothing: antialiased;
-  font-family: 'myFirstFont', sans-serif
+  // font-family: 'myFirstFont', sans-serif
+  font-family: 'cwTeXYen', sans-serif;
 }
 
 #app {
