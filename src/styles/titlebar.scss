@@ -28,6 +28,17 @@ $g: #797c81;
 
   .apply {
     display: none;
+    margin-left: 50px;
+    padding: 8px;
+    border-radius: 2px;
+    cursor: pointer;
+    border: 1px solid white;
+    color: white;
+    text-decoration: none;
+    &:hover {
+      background: white;
+      color: $b2;
+    }
   }
 
 }
