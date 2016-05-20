@@ -79,7 +79,7 @@ class App extends React.Component {
                 {Object.keys(ss).map( month => {
                   return (
                     <div>
-                      <div className='month'>{`${month}月`}</div>
+                      <div className='month'>{`${parseInt(month)+1}月`}</div>
                       <div id='chart-container'>
                         {ss[month].map( s => <Chart s={s} capacity={hut[0].capacity} maxApplying={maxApplying}/> )}
                       </div>
